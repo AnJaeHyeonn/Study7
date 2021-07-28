@@ -58,5 +58,12 @@ public class WrapperMain3 {
 		} else {
 			System.out.println("올바르지 못한 번호");
 		}
+		
+		
+		System.out.println("============Math==============");
+		
+		double d = Math.random();
+		System.out.println(d);
+		
 	}
 }
