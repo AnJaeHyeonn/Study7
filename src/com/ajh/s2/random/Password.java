@@ -6,11 +6,11 @@ import java.util.Random;
 public class Password {
 
 	Random random;
-	ArrayList<Character> ar;
+	ArrayList ar;
 
 	public Password() {
 		random = new Random();
-		ar = new ArrayList<Character>();
+		ar = new ArrayList();
 	}
 
 	// makePassword
@@ -27,18 +27,18 @@ public class Password {
 
 		while (ar.size() < 8) {
 
-			int num = random.nextInt(3) + 1;
+			int select = random.nextInt(3) + 1;
 
-			if (num == 1) {
-				System.out.println("대문자");
+			if (select == 1) {
+				System.out.println("대문자 사용");
 				i = random.nextInt(16) + 65;
 				ar.add((char) i);
-			} else if (num == 2) {
-				System.out.println("소문자");
+			} else if (select == 2) {
+				System.out.println("소문자 사용");
 				i = random.nextInt(16) + 97;
 				ar.add((char) i);
 			} else {
-				System.out.println("숫자");
+				System.out.println("숫자 사용");
 				i = random.nextInt(10) + 48;
 				ar.add((char) i);
 			}
