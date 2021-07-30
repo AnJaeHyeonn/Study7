@@ -10,10 +10,8 @@ public class Exception_2 {
 //		try {
 //			test2.t2(ar1);
 //		} catch (ArrayIndexOutOfBoundsException e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		} catch (Exception e) {
-//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
 		
@@ -21,7 +19,10 @@ public class Exception_2 {
 		try {
 			test1.t1();
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("예외 처리 시작");
+			//e.printStackTrace();
+			e.getMessage();
+			System.out.println("예외 처리 끝");
 		}
 	}
 
