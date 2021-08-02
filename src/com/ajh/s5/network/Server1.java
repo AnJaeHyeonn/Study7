@@ -10,7 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Serever1 {
+public class Server1 {
 	public static void main(String[] args) {
 		// Client 연결 요청이 오면 1:1 Socket을 생성해주는
 		// Server Socket이 있음
@@ -23,26 +23,29 @@ public class Serever1 {
 		InputStreamReader ir = null;
 		BufferedReader br = null;
 		Scanner scanner = new Scanner(System.in);
-		boolean flag = true;
 
-		while (flag) {
+		try {
+			ss = new ServerSocket(8282);
+			System.out.println("Client 접속 기다리는 중");
 
-			try {
-				ss = new ServerSocket(8282);
-				System.out.println("Client 접속 기다리는 중");
+			sc = ss.accept();
+			System.out.println("Client와 연결 성공");
 
-				sc = ss.accept();
-				System.out.println("Client와 연결 성공");
+			boolean check = true;
+
+			while (check) {
 
 				is = sc.getInputStream();
 				ir = new InputStreamReader(is);
 				br = new BufferedReader(ir);
 
 				String message = br.readLine();
+				System.out.println("클라이언트에서 보낸 메시지");
 				System.out.println("Client : " + message);
-				if (message.equals("q") || message.equals("Q")) {
-					System.out.println("while문 종료");
-					flag = !flag;
+
+				if (message.toUpperCase().equals("Q")) {
+					System.out.println("연결 종료");
+					break;
 				}
 
 				System.out.println("클라이언트로 보낼 메세지 입력");
@@ -60,23 +63,28 @@ public class Serever1 {
 				bw.write(message + "\r\n");
 				bw.flush();
 
+				if (message.toUpperCase().equals("Q")) {
+					break;
+				}
+
+			} // while의 끝
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				br.close();
+				ir.close();
+				is.close();
+
+				bw.close();
+				ow.close();
+				os.close();
+
+				ss.close();
+
 			} catch (Exception e) {
 				e.printStackTrace();
-			} finally {
-				try {
-					br.close();
-					ir.close();
-					is.close();
-
-					bw.close();
-					ow.close();
-					os.close();
-
-					ss.close();
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 			}
 		}
 	}

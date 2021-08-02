@@ -9,10 +9,12 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Cient1 {
-
+public class Client2 {
 	public static void main(String[] args) {
-		// Client 용
+
+		// 1. 서버 접속
+
+		// 2. 1.점심메뉴 2.저녁메뉴 3.종료// Client 용
 		// Ip + port
 		Socket sc = null;
 		OutputStream os = null;
@@ -26,13 +28,14 @@ public class Cient1 {
 		try {
 			sc = new Socket("59.15.163.216", 8282);
 			System.out.println("서버와 접속이 성공");
+
 			boolean check = true;
 
 			while (check) {
 
 				// 서버로 메세지 전송
-				System.out.println("서버로 보낼 메세지 입력");
-				String message = scanner.nextLine();
+				System.out.println("1.점심메뉴 \t 2.저녁메뉴 \t 3.종료");
+				int select = scanner.nextInt();
 
 				// byte 처리
 				os = sc.getOutputStream();
@@ -43,11 +46,12 @@ public class Cient1 {
 				// 문자열 처리
 				bw = new BufferedWriter(ow);
 
-				bw.write(message + "\r\n");
+				bw.write(select + "\r\n");
 				bw.flush();
 				System.out.println("서버로 전송 성공");
 
-				if (message.toUpperCase().equals("Q")) {
+				if (select > 2) {
+					System.out.println("종료");
 					break;
 				}
 
@@ -55,14 +59,8 @@ public class Cient1 {
 				ir = new InputStreamReader(is);
 				br = new BufferedReader(ir);
 
-				message = br.readLine();
-
-				System.out.println("서버에서 보낸 메세지");
-				System.out.println("Sever : " + message);
-
-				if (message.toUpperCase().equals("Q")) {
-					break;
-				}
+				String message = br.readLine();
+				System.out.println("메뉴 : " + message);
 
 			}
 		} catch (Exception e) {
@@ -77,11 +75,13 @@ public class Cient1 {
 				is.close();
 
 				sc.close();
+				scanner.close();
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+
 	}
 
 }
